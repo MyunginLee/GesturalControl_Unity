@@ -1,5 +1,4 @@
-# mediapipe_unity_template
- 
-Required packages 
+# Gestural Interface using MediaPipe in Unity
+ Required packages 
 
-com.github.homuler.mediapipe
+Copy "com.github.homuler.mediapipe" into Packages directory
