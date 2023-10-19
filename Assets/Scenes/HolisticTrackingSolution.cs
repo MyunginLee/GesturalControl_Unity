@@ -109,7 +109,7 @@ namespace Mediapipe.Unity.Holistic
           graphRunner.TryGetNext(out poseDetection, out poseLandmarks, out faceLandmarks, out leftHandLandmarks, out rightHandLandmarks, out poseWorldLandmarks, out segmentationMask, out poseRoi, false));
       }
       _poseDetectionAnnotationController.DrawNow(poseDetection);
-      _holisticAnnotationController.DrawNow(faceLandmarks, poseLandmarks, leftHandLandmarks, rightHandLandmarks);
+//      _holisticAnnotationController.DrawNow(faceLandmarks, poseLandmarks, leftHandLandmarks, rightHandLandmarks);
       _poseWorldLandmarksAnnotationController.DrawNow(poseWorldLandmarks);
       _segmentationMaskAnnotationController.DrawNow(segmentationMask);
       _poseRoiAnnotationController.DrawNow(poseRoi);
