@@ -1,9 +1,3 @@
-// Copyright (c) 2021 homuler
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file or at
-// https://opensource.org/licenses/MIT.
-
 using System.Collections;
 using UnityEngine;
 
@@ -62,7 +56,7 @@ namespace Mediapipe.Unity.Holistic
 
     protected override void SetupScreen(ImageSource imageSource)
     {
-      base.SetupScreen(imageSource);
+//      base.SetupScreen(imageSource);
       _worldAnnotationArea.localEulerAngles = imageSource.rotation.Reverse().GetEulerAngles();
     }
 
@@ -114,7 +108,6 @@ namespace Mediapipe.Unity.Holistic
         yield return new WaitUntil(() =>
           graphRunner.TryGetNext(out poseDetection, out poseLandmarks, out faceLandmarks, out leftHandLandmarks, out rightHandLandmarks, out poseWorldLandmarks, out segmentationMask, out poseRoi, false));
       }
-
       _poseDetectionAnnotationController.DrawNow(poseDetection);
       _holisticAnnotationController.DrawNow(faceLandmarks, poseLandmarks, leftHandLandmarks, rightHandLandmarks);
       _poseWorldLandmarksAnnotationController.DrawNow(poseWorldLandmarks);
@@ -130,6 +123,10 @@ namespace Mediapipe.Unity.Holistic
     private void OnFaceLandmarksOutput(object stream, OutputEventArgs<NormalizedLandmarkList> eventArgs)
     {
       _holisticAnnotationController.DrawFaceLandmarkListLater(eventArgs.value);
+            if (eventArgs.value != null)
+            {
+                Debug.Log(eventArgs.value.Landmark[1]);
+            }
     }
 
     private void OnPoseLandmarksOutput(object stream, OutputEventArgs<NormalizedLandmarkList> eventArgs)
