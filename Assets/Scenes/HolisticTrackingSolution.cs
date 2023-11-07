@@ -11,7 +11,6 @@ namespace Mediapipe.Unity.Holistic
     [SerializeField] private PoseWorldLandmarkListAnnotationController _poseWorldLandmarksAnnotationController;
     [SerializeField] private MaskAnnotationController _segmentationMaskAnnotationController;
     [SerializeField] private NormalizedRectAnnotationController _poseRoiAnnotationController;
-
     public HolisticTrackingGraph.ModelComplexity modelComplexity
     {
       get => graphRunner.modelComplexity;
@@ -98,7 +97,6 @@ namespace Mediapipe.Unity.Holistic
       LandmarkList poseWorldLandmarks = null;
       ImageFrame segmentationMask = null;
       NormalizedRect poseRoi = null;
-
       if (runningMode == RunningMode.Sync)
       {
         var _ = graphRunner.TryGetNext(out poseDetection, out poseLandmarks, out faceLandmarks, out leftHandLandmarks, out rightHandLandmarks, out poseWorldLandmarks, out segmentationMask, out poseRoi, true);
@@ -120,14 +118,17 @@ namespace Mediapipe.Unity.Holistic
       _poseDetectionAnnotationController.DrawLater(eventArgs.value);
     }
 
-    private void OnFaceLandmarksOutput(object stream, OutputEventArgs<NormalizedLandmarkList> eventArgs)
+    public void OnFaceLandmarksOutput(object stream, OutputEventArgs<NormalizedLandmarkList> eventArgs)
     {
       _holisticAnnotationController.DrawFaceLandmarkListLater(eventArgs.value);
             if (eventArgs.value != null)
             {
-                Debug.Log(eventArgs.value.Landmark[1]);
+                //Debug.Log(eventArgs.value.Landmark[1].X);
+                Genesis.gen.faceposition.x = (float)eventArgs.value.Landmark[1].X;
+                Genesis.gen.faceposition.y = (float)eventArgs.value.Landmark[1].Y;
+                Genesis.gen.faceposition.z = (float)eventArgs.value.Landmark[1].Z;
             }
-    }
+        }
 
     private void OnPoseLandmarksOutput(object stream, OutputEventArgs<NormalizedLandmarkList> eventArgs)
     {
