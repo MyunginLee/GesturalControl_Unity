@@ -106,21 +106,21 @@ namespace Mediapipe.Unity.Holistic
         yield return new WaitUntil(() =>
           graphRunner.TryGetNext(out poseDetection, out poseLandmarks, out faceLandmarks, out leftHandLandmarks, out rightHandLandmarks, out poseWorldLandmarks, out segmentationMask, out poseRoi, false));
       }
-      _poseDetectionAnnotationController.DrawNow(poseDetection);
+      //_poseDetectionAnnotationController.DrawNow(poseDetection);
 //      _holisticAnnotationController.DrawNow(faceLandmarks, poseLandmarks, leftHandLandmarks, rightHandLandmarks);
-      _poseWorldLandmarksAnnotationController.DrawNow(poseWorldLandmarks);
-      _segmentationMaskAnnotationController.DrawNow(segmentationMask);
-      _poseRoiAnnotationController.DrawNow(poseRoi);
+      //_poseWorldLandmarksAnnotationController.DrawNow(poseWorldLandmarks);
+      //_segmentationMaskAnnotationController.DrawNow(segmentationMask);
+      //_poseRoiAnnotationController.DrawNow(poseRoi);
     }
 
     private void OnPoseDetectionOutput(object stream, OutputEventArgs<Detection> eventArgs)
     {
-      _poseDetectionAnnotationController.DrawLater(eventArgs.value);
+      //_poseDetectionAnnotationController.DrawLater(eventArgs.value);
     }
 
     public void OnFaceLandmarksOutput(object stream, OutputEventArgs<NormalizedLandmarkList> eventArgs)
     {
-      _holisticAnnotationController.DrawFaceLandmarkListLater(eventArgs.value);
+      //_holisticAnnotationController.DrawFaceLandmarkListLater(eventArgs.value);
             if (eventArgs.value != null)
             {
                 //Debug.Log(eventArgs.value.Landmark[1].X);
@@ -132,32 +132,39 @@ namespace Mediapipe.Unity.Holistic
 
     private void OnPoseLandmarksOutput(object stream, OutputEventArgs<NormalizedLandmarkList> eventArgs)
     {
-      _holisticAnnotationController.DrawPoseLandmarkListLater(eventArgs.value);
+     // _holisticAnnotationController.DrawPoseLandmarkListLater(eventArgs.value);
     }
 
     private void OnLeftHandLandmarksOutput(object stream, OutputEventArgs<NormalizedLandmarkList> eventArgs)
     {
-      _holisticAnnotationController.DrawLeftHandLandmarkListLater(eventArgs.value);
+      //_holisticAnnotationController.DrawLeftHandLandmarkListLater(eventArgs.value);
     }
 
     private void OnRightHandLandmarksOutput(object stream, OutputEventArgs<NormalizedLandmarkList> eventArgs)
     {
-      _holisticAnnotationController.DrawRightHandLandmarkListLater(eventArgs.value);
-    }
+      //_holisticAnnotationController.DrawRightHandLandmarkListLater(eventArgs.value);
+            if (eventArgs.value != null)
+            {
+                //Debug.Log(eventArgs.value.Landmark[1].X);
+                Genesis.gen.righthandposition.x = (float)eventArgs.value.Landmark[15].X;
+                Genesis.gen.righthandposition.y = (float)eventArgs.value.Landmark[15].Y;
+                Genesis.gen.righthandposition.z = (float)eventArgs.value.Landmark[15].Z;
+            }
+        }
 
     private void OnPoseWorldLandmarksOutput(object stream, OutputEventArgs<LandmarkList> eventArgs)
     {
-      _poseWorldLandmarksAnnotationController.DrawLater(eventArgs.value);
+      //_poseWorldLandmarksAnnotationController.DrawLater(eventArgs.value);
     }
 
     private void OnSegmentationMaskOutput(object stream, OutputEventArgs<ImageFrame> eventArgs)
     {
-      _segmentationMaskAnnotationController.DrawLater(eventArgs.value);
+      //_segmentationMaskAnnotationController.DrawLater(eventArgs.value);
     }
 
     private void OnPoseRoiOutput(object stream, OutputEventArgs<NormalizedRect> eventArgs)
     {
-      _poseRoiAnnotationController.DrawLater(eventArgs.value);
+      //_poseRoiAnnotationController.DrawLater(eventArgs.value);
     }
   }
 }
