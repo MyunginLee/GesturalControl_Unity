@@ -10,7 +10,7 @@ public class Genesis : MonoBehaviour
     public Vector3[] lefthandpos = new Vector3[20];
     private GameObject head, rhand, lhand, body;
     public static Genesis gen; // singleton
-    public bool trigger;
+    public bool trigger = false;
     private void Awake()
     {
         if(Genesis.gen == null)
@@ -34,10 +34,11 @@ void Update()
         rhand.transform.position = -pose[15] * 30;
         lhand.transform.position = -pose[16] * 30;
         body.transform.position = -pose[12] * 30;
-        AudioSynthFM.synth.frequency = pose[15].y * 3000 + 300;
-        AudioSynthFM.synth.carrierMultiplier = Mathf.Abs(pose[15].z) * 100 + 10;
+        AudioSynthFM.synth.frequency = -pose[15].y * 30 + 300;
+        AudioSynthFM.synth.carrierMultiplier = Mathf.Abs(pose[15].z) * 10;
+        AudioSynthFM.synth.modularMultiplier = Mathf.Abs(pose[15].x) * 10;
         float distance = (pose[15] - pose[16]).magnitude * 100;
-        if (distance < 10)
+        if (distance < 15)
         {
             trigger = true;
         }
