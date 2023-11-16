@@ -11,7 +11,6 @@ using Mediapipe.Unity.Holistic;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public class Genesis : MonoBehaviour
 {
@@ -97,10 +96,10 @@ public class Genesis : MonoBehaviour
         body.transform.position = -(pose[11] + pose[12] + pose[23] + pose[24]) / 4 * 30;
         
         // Map positional parameters to audio parameters
-        AudioSynthFM.synth.frequency = Mathf.Abs(-pose[15].y * 30 + 50);
-        AudioSynthFM.synth.carrierMultiplier = Mathf.Abs(pose[15].x + pose[16].x)/2;
-        AudioSynthFM.synth.modularMultiplier = Mathf.Abs(pose[15].y + pose[16].y)/2;
-        //Debug.Log(AudioSynthFM.synth.frequency + "   " + AudioSynthFM.synth.carrierMultiplier + "   "  +  AudioSynthFM.synth.modularMultiplier);
+        AudioSynthFM.synth.frequency = Mathf.Abs(-pose[15].y * 100 + 100); // left hand pitch. but it can be anything you know
+        AudioSynthFM.synth.carrierMultiplier = Mathf.Abs(pose[15].x + pose[16].x); 
+        AudioSynthFM.synth.modularMultiplier = Mathf.Abs(pose[15].y + pose[16].y);
+        // Debug.Log(AudioSynthFM.synth.frequency + "   " + AudioSynthFM.synth.carrierMultiplier + "   "  +  AudioSynthFM.synth.modularMultiplier);
         distance = (pose[15] - pose[16]).magnitude;
         AudioSynthFM.synth.distance = distance;
         // Clapping detection
