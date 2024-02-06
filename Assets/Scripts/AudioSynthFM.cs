@@ -57,7 +57,7 @@ public class AudioSynthFM : MonoBehaviour
             Button = !Button;
         }
         // Check distance?
-        Debug.Log("distance: " + distance);
+        // Debug.Log("distance: " + distance);
         // Low Pass Filter
         GetComponent<AudioDistortionFilter>().distortionLevel = 0.1f/distance;
         //// ReverbFilter

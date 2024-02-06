@@ -1793,6 +1793,8 @@ MonoBehaviour:
   tkRightArm: {fileID: 0}
   tkLeftLeg: {fileID: 0}
   tkRightLeg: {fileID: 0}
+  tkBody: {fileID: 0}
+  shuffler: {fileID: 0}
   trigger: 0
 --- !u!1001 &1334974596
 PrefabInstance:

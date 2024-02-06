@@ -94,24 +94,24 @@ public class Genesis : MonoBehaviour
         }
 
         // Case 1. Sound synth model ( head, R+L hands + body)
-        // This part use existing Gameobjects and assign position. Not relavent to audio at all.
-        head.transform.position = -pose[0] * 30;
-        rhand.transform.position = -pose[15] * 30;
-        lhand.transform.position = -pose[16] * 30;
-        body.transform.position = -(pose[11] + pose[12] + pose[23] + pose[24]) / 4 * 30;
+        //// This part use existing Gameobjects and assign position. Not relavent to audio at all.
+        //head.transform.position = -pose[0] * 30;
+        //rhand.transform.position = -pose[15] * 30;
+        //lhand.transform.position = -pose[16] * 30;
+        //body.transform.position = -(pose[11] + pose[12] + pose[23] + pose[24]) / 4 * 30;
 
         // Map positional parameters to audio parameters
-        AudioSynthFM.synth.frequency = Mathf.Abs(-pose[15].y * 100 + 100); // left hand pitch. but it can be anything you know
-        AudioSynthFM.synth.carrierMultiplier = Mathf.Abs(pose[15].x + pose[16].x); 
-        AudioSynthFM.synth.modularMultiplier = Mathf.Abs(pose[15].y + pose[16].y);
-        // Debug.Log(AudioSynthFM.synth.frequency + "   " + AudioSynthFM.synth.carrierMultiplier + "   "  +  AudioSynthFM.synth.modularMultiplier);
-        distance = (pose[15] - pose[16]).magnitude;
-        AudioSynthFM.synth.distance = distance;
-        // Clapping detection
-        if (distance < 0.15)
-        {
-            trigger = true;
-        }
+        //AudioSynthFM.synth.frequency = Mathf.Abs(-pose[15].y * 100 + 100); // left hand pitch. but it can be anything you know
+        //AudioSynthFM.synth.carrierMultiplier = Mathf.Abs(pose[15].x + pose[16].x); 
+        //AudioSynthFM.synth.modularMultiplier = Mathf.Abs(pose[15].y + pose[16].y);
+        //// Debug.Log(AudioSynthFM.synth.frequency + "   " + AudioSynthFM.synth.carrierMultiplier + "   "  +  AudioSynthFM.synth.modularMultiplier);
+        //distance = (pose[15] - pose[16]).magnitude;
+        //AudioSynthFM.synth.distance = distance;
+        //// Clapping detection
+        //if (distance < 0.15)
+        //{
+        //    trigger = true;
+        //}
         // Refer "audio.cs" to change the audio
     }
 }
