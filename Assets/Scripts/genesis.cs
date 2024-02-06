@@ -22,6 +22,8 @@ public class Genesis : MonoBehaviour
     public Vector3[] lefthandpos = new Vector3[handLandmark_number];
     public GameObject[] PoseLandmarks, LeftHandLandmarks, RightHandLandmarks;
     private GameObject head, rhand, lhand, body;
+    public GameObject tkLeftArm, tkRightArm, tkLeftLeg, tkRightLeg;
+
     public static Genesis gen; // singleton
     public bool trigger = false;
     private float distance;
@@ -64,27 +66,30 @@ public class Genesis : MonoBehaviour
         int idx = 0;
         foreach (GameObject pl in PoseLandmarks)
         {
-            pl.transform.transform.position = -pose[idx] * 30;
-            Color customColor = new Color(idx*100 / 255, idx * 50 / 255, idx * 30 / 255, 1); // Color of pose landmarks
+            pl.transform.transform.position = -pose[idx];
+            Color customColor = new Color(idx*10 / 255, idx * 7 / 255, idx * 3 / 255, 1); // Color of pose landmarks
             pl.GetComponent<Renderer>().material.SetColor("_Color", customColor);
+            pl.transform.localScale = new Vector3(0.05f,0.05f,0.05f);
             idx++;
         }
         // Assign Left hand landmarks position
         idx = 0;
         foreach (GameObject lhl in LeftHandLandmarks)
         {
-            lhl.transform.transform.position = -lefthandpos[idx] * 30;
+            lhl.transform.transform.position = -lefthandpos[idx];
             Color customColor = new Color(idx * 4 / 255, idx * 15f / 255, idx * 30f / 255, 1); // Color of left hand landmarks
             lhl.GetComponent<Renderer>().material.SetColor("_Color", customColor);
+            lhl.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             idx++;
         }
         // Assign Right hand landmarks position
         idx = 0;
         foreach (GameObject rhl in RightHandLandmarks)
         {
-            rhl.transform.transform.position = -righthandpos[idx] * 30;
+            rhl.transform.transform.position = -righthandpos[idx];
             Color customColor = new Color(idx * 4f / 255, idx * 15f / 255, idx * 30f / 255, 1); // Color of right hand landmarks
             rhl.GetComponent<Renderer>().material.SetColor("_Color", customColor);
+            rhl.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
             idx++;
         }
 
@@ -94,7 +99,7 @@ public class Genesis : MonoBehaviour
         rhand.transform.position = -pose[15] * 30;
         lhand.transform.position = -pose[16] * 30;
         body.transform.position = -(pose[11] + pose[12] + pose[23] + pose[24]) / 4 * 30;
-        
+
         // Map positional parameters to audio parameters
         AudioSynthFM.synth.frequency = Mathf.Abs(-pose[15].y * 100 + 100); // left hand pitch. but it can be anything you know
         AudioSynthFM.synth.carrierMultiplier = Mathf.Abs(pose[15].x + pose[16].x); 
