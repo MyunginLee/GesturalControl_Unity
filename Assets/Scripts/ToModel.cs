@@ -63,7 +63,7 @@ public class ToModel : MonoBehaviour
 
 
         // 2. Update Shuffler's position
-        shuffler.transform.transform.position = new Vector3(-0.97f + 0.3f*Mathf.Sin(timer),-0.76f,-1 + 0.3f * Mathf.Cos(timer));
+        shuffler.transform.transform.position = new Vector3(-0.5f + 0.5f*Mathf.Sin(timer), -0.76f, -0.3f + 0.3f * Mathf.Cos(timer));
         timer = timer + 0.01f;
     }
 }
