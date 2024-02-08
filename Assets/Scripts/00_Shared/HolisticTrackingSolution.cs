@@ -130,9 +130,9 @@ namespace Mediapipe.Unity.Holistic
             {
                 for (int i = 0; i < 32; i++)
                 {
-                    Genesis.gen.pose[i].x = eventArgs.value.Landmark[i].X;
-                    Genesis.gen.pose[i].y = eventArgs.value.Landmark[i].Y;
-                    Genesis.gen.pose[i].z = eventArgs.value.Landmark[i].Z;
+                    Gesture.gen.pose[i].x = eventArgs.value.Landmark[i].X;
+                    Gesture.gen.pose[i].y = eventArgs.value.Landmark[i].Y;
+                    Gesture.gen.pose[i].z = eventArgs.value.Landmark[i].Z;
                 }
             }
         }
@@ -144,9 +144,9 @@ namespace Mediapipe.Unity.Holistic
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    Genesis.gen.lefthandpos[i].x = eventArgs.value.Landmark[i].X;
-                    Genesis.gen.lefthandpos[i].y = eventArgs.value.Landmark[i].Y;
-                    Genesis.gen.lefthandpos[i].z = eventArgs.value.Landmark[i].Z;
+                    Gesture.gen.lefthandpos[i].x = eventArgs.value.Landmark[i].X;
+                    Gesture.gen.lefthandpos[i].y = eventArgs.value.Landmark[i].Y;
+                    Gesture.gen.lefthandpos[i].z = eventArgs.value.Landmark[i].Z;
                 }
             }
         }
@@ -158,9 +158,9 @@ namespace Mediapipe.Unity.Holistic
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    Genesis.gen.righthandpos[i].x = eventArgs.value.Landmark[i].X;
-                    Genesis.gen.righthandpos[i].y = eventArgs.value.Landmark[i].Y;
-                    Genesis.gen.righthandpos[i].z = eventArgs.value.Landmark[i].Z;
+                    Gesture.gen.righthandpos[i].x = eventArgs.value.Landmark[i].X;
+                    Gesture.gen.righthandpos[i].y = eventArgs.value.Landmark[i].Y;
+                    Gesture.gen.righthandpos[i].z = eventArgs.value.Landmark[i].Z;
                 }
             }
         }

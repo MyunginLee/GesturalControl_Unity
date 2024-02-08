@@ -9,28 +9,32 @@
 using Mediapipe.Unity.Holistic;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ToModel : MonoBehaviour
 {
     static int poseLandmark_number = 32;
     static int handLandmark_number = 20;
-    public GameObject tkLeftArm, tkRightArm, tkLeftLeg, tkRightLeg, tkBody;
+    public GameObject tkLeftArm, tkRightArm, tkLeftLeg, tkRightLeg, tkBody, tkHip, tkWhole;
     public GameObject shuffler;
-    public static Genesis gen; // singleton
+    public static Gesture gen; // singleton
     public bool trigger = false;
     private float distance;
     int totalNumberofLandmark;
     float timer=0;
+    Vector3 tkposition;
+
     private void Awake()
     {
         totalNumberofLandmark = poseLandmark_number + handLandmark_number + handLandmark_number;
         tkLeftArm = GameObject.Find("TKworks@T-Pose/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm");
         tkRightArm = GameObject.Find("TKworks@T-Pose/mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm");
-        tkLeftLeg = GameObject.Find("TKworks@T-Pose/mixamorig:Hips/mixamorig:LeftUpLeg");
-        tkRightLeg = GameObject.Find("TKworks@T-Pose/mixamorig:Hips/mixamorig:RightUpLeg");
         tkBody = GameObject.Find("TKworks@T-Pose/mixamorig:Hips/mixamorig:Spine");
+        tkHip = GameObject.Find("TKworks@T-Pose/mixamorig:Hips");
+        tkWhole = GameObject.Find("TKworks@T-Pose");
         shuffler = GameObject.Find("Shuffling");
+
     }
     // Start is called before the first frame update
     void Start()
@@ -39,12 +43,26 @@ public class ToModel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // move rabbit using right and left hands (right: thumb/index/middle & left: index/middle) 
-        tkRightArm.transform.eulerAngles = (Genesis.gen.righthandpos[12] - Genesis.gen.righthandpos[9] ).normalized * 90;
-        tkLeftArm.transform.eulerAngles = -(Genesis.gen.righthandpos[4] - Genesis.gen.righthandpos[1]).normalized *90;
-        tkBody.transform.eulerAngles = -(Genesis.gen.righthandpos[8] - Genesis.gen.righthandpos[5]).normalized * 180;
-        tkLeftLeg.transform.eulerAngles = (Genesis.gen.lefthandpos[12] - Genesis.gen.lefthandpos[9]).normalized * 180;
-        tkRightLeg.transform.eulerAngles = (Genesis.gen.lefthandpos[8] - Genesis.gen.lefthandpos[5]).normalized * 180;
+        // 1. Mapping tk's motion from gestuer
+        // landmark refer: https://developers.google.com/mediapipe/solutions/vision/hand_landmarker
+        // Assign tk's position. averaged the 20 points from the righthands
+        tkposition = new Vector3(0, 0, 0);
+        for (int i = 0; i < 20; i++)
+        { 
+            tkposition = tkposition - Gesture.gen.righthandpos[i];
+        }
+        tkposition = tkposition / 20;
+        tkWhole.transform.position = tkposition;
+
+        // Assign tk's left and right arms and body position.
+        // Averaged 2 vectors to get the stable estimation
+        // move rabbit using right hands (right: thumb/index/middle) 
+        tkRightArm.transform.position = -(Gesture.gen.righthandpos[4] + Gesture.gen.righthandpos[2] + Gesture.gen.righthandpos[3] + Gesture.gen.righthandpos[1]) / 4;
+        tkLeftArm.transform.position = -(Gesture.gen.righthandpos[12] + Gesture.gen.righthandpos[10] + Gesture.gen.righthandpos[11] + Gesture.gen.righthandpos[9]) / 4;
+        tkBody.transform.position = -(Gesture.gen.righthandpos[8] + Gesture.gen.righthandpos[6] + Gesture.gen.righthandpos[7] + Gesture.gen.righthandpos[5]) / 4;
+
+
+        // 2. Update Shuffler's position
         shuffler.transform.transform.position = new Vector3(-0.97f + 0.3f*Mathf.Sin(timer),-0.76f,-1 + 0.3f * Mathf.Cos(timer));
         timer = timer + 0.01f;
     }
