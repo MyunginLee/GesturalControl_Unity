@@ -1,6 +1,6 @@
 //IMDM Course material
 // Author: Myungin Lee
-// Date: Fall 2023
+// Date: Spring 2024
 // This code demonstrates how to use landmarks to draw sets of skeletons on the finger
 // Credit: Sillias, Mateo, Sreya, Madeleine Team from IMDM290, 2024
 
@@ -13,7 +13,7 @@ public class Skeleton : MonoBehaviour
 {
     public GameObject obj;
 
-    // pair of landmarks
+    // List pairs of landmarks
     int[,] linePairsL = new int[,] { {4,3}, {3,2}, {2,1}, {1,0}, {8,7}, {7,6}, {6,5}, {5,0},
 {12,11}, {11,10}, {10,9}, {16,15}, {15,14}, {14,13},
 {20, 19}, {19,18}, {18,17}, {17,0}}; 
@@ -66,6 +66,7 @@ public class Skeleton : MonoBehaviour
     }
     void Update()
     {
+        // Lefthand skeleton draw
         for (int i = 0; i < linePairsL.GetLength(0); i++)
         {
             int first = linePairsL[i, 0];
@@ -80,7 +81,7 @@ public class Skeleton : MonoBehaviour
                 placeCapsule(capsuleContainerL[i], pos1, pos2, .05f);
             }
         }
-
+        // Righthand skeleton draw
         for (int i = 0; i < linePairsR.GetLength(0); i++)
         {
             int first = linePairsR[i, 0];

@@ -30,7 +30,7 @@ public class Gest2World : MonoBehaviour
         lefthandpos = lefthandpos / 20;
 
         ps.startSpeed = 1+ lefthandpos.y*30;
-        ps.startColor = new Color(Gesture.gen.righthandpos[0].x, Gesture.gen.righthandpos[0].y, Gesture.gen.righthandpos[0].z) ;
+        ps.startColor = new Color(Gesture.gen.righthandpos[0].x*10, Gesture.gen.righthandpos[0].y*100, Gesture.gen.righthandpos[0].z) ;
         // Control audio
         sound.pitch = Mathf.Abs(Gesture.gen.righthandpos[0].y) * 1.5f;
     }

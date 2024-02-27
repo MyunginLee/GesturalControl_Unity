@@ -1,19 +1,20 @@
+// IMDM Course material
+// Author: Myungin Lee
+// Date: Spring 2024
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.ParticleSystem;
-using Random = System.Random;
-
-[RequireComponent(typeof(AudioSource))]
-[RequireComponent(typeof(AudioDistortionFilter))]
 [RequireComponent(typeof(AudioReverbFilter))]
+//[RequireComponent(typeof(AudioLowPassFilter))]
 
-// Frequency Modulation Synthesizer
+// Frequency Modulation Synthesizer with theremin like interface
+// Press "space" to activate. 
+
+
 public class AudioSynthFM : MonoBehaviour
 {
-    public static AudioSynthFM synth;
-    [Range(20, 4000)]  //Creates a slider in the inspector
     public float frequency; // main note frequency
     [Range(0, 20)]
     public float carrierMultiplier; // carrier frequency = frequency * carrierMultiplier
@@ -23,32 +24,22 @@ public class AudioSynthFM : MonoBehaviour
     [Range(0.1f, 2)]  //Creates a slider in the inspector
     public float amplitude; // amplitude of audio
     AudioSource audioSource;
-    int timeIdx = 0; // Time increment variable
-    public float envelope;
-    Renderer cubeRenderer;
+    GameObject flow;
     float phase = 0;
     public float distance;
-    private Random rand = new Random();
     private bool Button = false;
-    void Awake()
-    {
-        if (AudioSynthFM.synth == null)
-        {
-            AudioSynthFM.synth = this;
-        }
-    }
 
     void Start()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
+        flow = GameObject.Find("flow");
         audioSource.playOnAwake = false;
         audioSource.Stop(); //avoids audiosource from starting to play automatically
         frequency = 100; // init
         carrierMultiplier = 1.4f;
-        modularMultiplier = 0.5f;
+        modularMultiplier = 1f;
         amplitude = 0.1f;
         distance = 0;
-        timeIdx = 0;
     }
     void Update()
     {
@@ -56,14 +47,29 @@ public class AudioSynthFM : MonoBehaviour
         {
             Button = !Button;
         }
-        // Check distance?
-        // Debug.Log("distance: " + distance);
-        // Low Pass Filter
-        GetComponent<AudioDistortionFilter>().distortionLevel = 0.1f/distance;
+        // Check distance
+        distance = (Gesture.gen.lefthandpos[8] - Gesture.gen.lefthandpos[4]).magnitude;
+        Debug.Log(distance);
+        if (distance> 0 && distance < 0.03f)
+        {
+            Button = true;
+        }
+        else
+        {
+            Button = false;
+        }
         //// ReverbFilter
-        GetComponent<AudioReverbFilter>().decayTime = 0.1f+ distance * 10f;
-        // Random.Range vs rand.NextDouble()?
+        GetComponent<AudioReverbFilter>().decayTime = 10;
+        // Lowpass filter
+        //GetComponent<AudioLowPassFilter>().cutoffFrequency = 0.1f+ distance * 1000f;
+
+        carrierMultiplier = distance * 5;
+        // assign 
+        frequency = (-Gesture.gen.pose[15].y+3) * 100 + 20;
+        modularMultiplier = (Gesture.gen.pose[16].x + 1);
+        // Random.Range vs rand.NextDouble()
     }
+
     void OnAudioFilterRead(float[] data, int channels)
     {
         if (Button)
@@ -72,9 +78,8 @@ public class AudioSynthFM : MonoBehaviour
             {
                 phase += 2 * Mathf.PI * frequency / sampleRate;
                 // Pure FM
-                data[i] = amplitude / (0.1f + distance) * FM(phase, carrierMultiplier, modularMultiplier);
-                // Need something brutal? try this
-                //data[i] = amplitude / (0.1f + distance) * FM(phase, carrierMultiplier, modularMultiplier) * (float)(rand.NextDouble());
+                //data[i] = amplitude / (0.1f + distance) * FM(phase, carrierMultiplier, modularMultiplier);
+                data[i] = amplitude * FM(phase, carrierMultiplier, modularMultiplier) * (1 + Gesture.gen.pose[16].x);
                 data[i + 1] = data[i];
                 if (phase >= 2 * Mathf.PI)
                 {
@@ -86,17 +91,7 @@ public class AudioSynthFM : MonoBehaviour
     // Frequency Modulation computation
     public float FM(float phase, float carMul, float modMul)
     {
-        //return Mathf.Sin(ComputeFreq(phase) * timeIdx); // Sine wave
         return Mathf.Sin(  phase * carMul + Mathf.Sin( phase * modMul) ); // fluctuating FM
-    }
-    // Envelope, Not used in this code but you may need it to shape something
-    public float Envelope(int timeIdx)
-    {   // should have something looks like..: /\__
-        // https://www.sciencedirect.com/topics/engineering/envelope-function
-        float a = 0.13f;
-        float b = 0.45f;
-        float tempo = 1000f;// timeIdx is an integer increasing rapidly so calm down
-        return Mathf.Abs(Mathf.Exp(-a * (timeIdx) / tempo) - Mathf.Exp(-b * (timeIdx) / tempo));
     }
 }
 
