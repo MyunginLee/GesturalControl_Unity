@@ -321,6 +321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 148021280}
   - component: {fileID: 148021281}
+  - component: {fileID: 148021282}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -355,7 +356,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7169287e101f9d342a87b89eebb5ac7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawLandmarks: 0
+--- !u!114 &148021282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148021279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b3f2ca691c4f884ca56be7b315e1fcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   obj: {fileID: 0}
 --- !u!1 &173192577
 GameObject:

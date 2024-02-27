@@ -352,7 +352,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 148021279}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7169287e101f9d342a87b89eebb5ac7a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b3f2ca691c4f884ca56be7b315e1fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 0}
@@ -943,9 +943,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 344427464}
-  - component: {fileID: 344427465}
   - component: {fileID: 344427467}
   - component: {fileID: 344427466}
+  - component: {fileID: 344427468}
   m_Layer: 0
   m_Name: noisesource
   m_TagString: Untagged
@@ -968,22 +968,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1949101828}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &344427465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344427463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e4e884a6236a154eb7ed7419cf32dea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sampleRate: 44100
-  amplitude: 0
-  frequency: 0
-  distance: 0
 --- !u!169 &344427466
 AudioLowPassFilter:
   m_ObjectHideFlags: 0
@@ -1105,6 +1089,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &344427468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344427463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 296f9b8da347f114fb5b8d9f4aa5bff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sampleRate: 44100
+  amplitude: 0
+  frequency: 0
+  distance: 0
 --- !u!1001 &629162779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3217,7 +3217,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1949101828}
-  - component: {fileID: 1949101827}
+  - component: {fileID: 1949101829}
   m_Layer: 0
   m_Name: Narrative
   m_TagString: Untagged
@@ -3225,19 +3225,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1949101827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949101826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e3685267b3e344d9c6362ad9b45e4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flow: {fileID: 0}
 --- !u!4 &1949101828
 Transform:
   m_ObjectHideFlags: 0
@@ -3256,6 +3243,19 @@ Transform:
   - {fileID: 344427464}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1949101829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949101826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdff78a9f8e25dd49b622ad15cddb6bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flow: {fileID: 0}
 --- !u!1 &1960727773
 GameObject:
   m_ObjectHideFlags: 0
