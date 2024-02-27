@@ -2,7 +2,7 @@
 // Author: Myungin Lee
 // Date: Spring 2024
 // This code demonstrates how to use landmarks to draw sets of skeletons on the finger
-// Credit: Sillias, Mateo, Sreya, Madeleine Team from IMDM290, 2024
+// Credit: Silas, Mateo, Sreya, Madeleine Team from IMDM290, 2024
 
 using Mediapipe.Unity.Holistic;
 using System.Collections;
