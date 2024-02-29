@@ -12,7 +12,6 @@ using UnityEngine.UI;
 // Frequency Modulation Synthesizer with theremin like interface
 // Press "space" to activate. 
 
-
 public class AudioSynthFM : MonoBehaviour
 {
     public float frequency; // main note frequency
@@ -49,7 +48,7 @@ public class AudioSynthFM : MonoBehaviour
         }
         // Check distance
         distance = (Gesture.gen.lefthandpos[8] - Gesture.gen.lefthandpos[4]).magnitude;
-        Debug.Log(distance);
+        //Debug.Log(distance);
         if (distance> 0 && distance < 0.03f)
         {
             Button = true;
@@ -65,7 +64,7 @@ public class AudioSynthFM : MonoBehaviour
 
         carrierMultiplier = distance * 5;
         // assign 
-        frequency = (-Gesture.gen.pose[15].y+3) * 100 + 20;
+        frequency = (-Gesture.gen.pose[15].y+1) * 800 + 20;
         modularMultiplier = (Gesture.gen.pose[16].x + 1);
         // Random.Range vs rand.NextDouble()
     }

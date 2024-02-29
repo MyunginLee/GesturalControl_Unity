@@ -30,7 +30,7 @@ public class NoiseToFilter : MonoBehaviour
         flow = GameObject.Find("flow");
         audioSource.playOnAwake = false;
         audioSource.Stop(); //avoids audiosource from starting to play automatically
-        amplitude = 0.1f;
+        amplitude = 0.05f;
         distance = 1;
         frequency = 100;
     }
@@ -57,7 +57,7 @@ public class NoiseToFilter : MonoBehaviour
                 phase += 2 * Mathf.PI * frequency / sampleRate;
                 // Pure FM
                 //data[i] = amplitude / (0.1f + distance) * FM(phase, carrierMultiplier, modularMultiplier);
-                // Need something brutal? try this
+                // White Noise = completely random noise
                 data[i] = amplitude * (float)(rand.NextDouble());
                 data[i + 1] = data[i];
                 if (phase >= 2 * Mathf.PI)
